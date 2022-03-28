@@ -17,14 +17,14 @@ public class ItemRest {
     @Inject
     ItemService itemService;
 
-    @Path("new")
+    @Path("")
     @POST
     public Response createItem(Item item) {
         itemService.createItem(item);
         return Response.ok(item).build();
     }
 
-    @Path("update")
+    @Path("")
     @PUT
     public Response updateItem(Item item) {
         itemService.updateItem(item);
@@ -35,10 +35,30 @@ public class ItemRest {
     @GET
     public Response findItemById(@PathParam("id") Long id) {
         Item foundItem = itemService.findItemById(id);
+
+        if (foundItem == null) {
+
+            throw new WebApplicationException(Response.status(Response.Status.NOT_FOUND)
+                    .entity("Item with ID " + id + " was not found in database.").type(MediaType.TEXT_PLAIN_TYPE).build());
+        }
         return Response.ok(foundItem).build();
     }
 
-    @Path("getall")
+    @Path("query")
+    @GET
+    public Response getAllItemsInCategory(@QueryParam("category") String category) {
+
+        // Här ska logik finnas tillgänglig som filtrerar ut alla items efter vald kategori
+        // Lämpligtvis finns logiken i Service-klassen och metoden anropas härifrån
+
+        String responseString = "Här skall en lista presenteras som innehåller alla items i kategori " + category;
+        return Response.ok(responseString).type(MediaType.TEXT_PLAIN_TYPE).build();
+
+
+    }
+
+
+    @Path("")
     @GET
     public Response getAllItems() {
         List<Item> foundItems = itemService.getAllItems();
@@ -51,5 +71,17 @@ public class ItemRest {
         itemService.deleteItem(id);
         return Response.ok().build();
     }
+
+    @Path("{id}")
+    @PATCH
+    public Response updateName(@PathParam("id") Long id, Item item) {
+
+
+        Item updatedItem = itemService.updateName(id, item.getName());
+        return Response.ok(updatedItem).build();
+    }
+
+
+
 
 }
