@@ -1,10 +1,12 @@
 package se.iths.entity;
 
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
 
 @Entity
+//@Table(name = "item_tabell")
 public class Item {
 
     @Id
@@ -13,10 +15,14 @@ public class Item {
 
     @Size(min = 2)
     private String name;
+//    @Column(name = "category_column")
     private String category;
     private int quantity;
     private double price;
     private LocalDate createdAt;
+    @ManyToOne
+    private User user;
+
 
     @PrePersist
     public void getCurrentDate() {
@@ -31,6 +37,15 @@ public class Item {
     }
 
     public Item() {}
+
+    @JsonbTransient
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     public LocalDate getCreatedAt() {
         return createdAt;

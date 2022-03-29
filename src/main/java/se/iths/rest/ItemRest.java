@@ -14,8 +14,12 @@ import java.util.List;
 @Produces(MediaType.APPLICATION_JSON)
 public class ItemRest {
 
-    @Inject
     ItemService itemService;
+
+    @Inject
+    public ItemRest(ItemService itemService) {
+        this.itemService = itemService;
+    }
 
     @Path("")
     @POST

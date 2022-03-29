@@ -25,6 +25,7 @@ public class ItemService {
         return entityManager.find(Item.class, id);
     }
 
+    // JPQL Query
     public List<Item> getAllItems() {
         return entityManager.createQuery("SELECT i from Item i", Item.class).getResultList();
     }
@@ -36,7 +37,9 @@ public class ItemService {
 
     public Item updateName(Long id, String name) {
         Item foundItem = entityManager.find(Item.class, id);
+        // Nu finns foundItem i vårat Persistence Context
         foundItem.setName(name);
+        // Ändringen registreras i vårat Persistence Context
         return foundItem;
     }
 
