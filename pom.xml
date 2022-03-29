@@ -21,6 +21,13 @@
             <version>2.1.210</version>
             <scope>runtime</scope>
         </dependency>
+        <dependency>
+            <groupId>org.eclipse.persistence</groupId>
+            <artifactId>org.eclipse.persistence.jpa.modelgen.processor</artifactId>
+            <version>3.1.0-M1</version>
+            <scope>runtime</scope>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -30,6 +37,26 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
                 <version>3.3.2</version>
+            </plugin>
+            <plugin>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <version>3.5.1</version>
+            <executions>
+                <execution>
+                    <id>default-compile</id>
+                    <phase>compile</phase>
+                    <goals>
+                        <goal>compile</goal>
+                    </goals>
+                </execution>
+            </executions>
+            <configuration>
+                <source>17</source>
+                <target>17</target>
+                <compilerArgs>
+                    <arg>-Aeclipselink.persistencexml=src/main/resources/META-INF/persistence.xml</arg>
+                </compilerArgs>
+            </configuration>
             </plugin>
         </plugins>
     </build>

@@ -86,6 +86,60 @@ public class ItemRest {
     }
 
 
+    // JPQL Queries för demo
 
+    @Path("getbyname-dq")
+    @GET
+    public List<Item> getByNameDQ(@QueryParam("name") String name) {
+        return itemService.getByNameDynamicQuery(name);
+    }
 
+    @Path("getbyname-np")
+    @GET
+    public List<Item> getByNameNP(@QueryParam("name") String name) {
+        return itemService.getByNameNamedParameters(name);
+    }
+
+    @Path("getbyname-pp")
+    @GET
+    public List<Item> getByNamePP(@QueryParam("name") String name) {
+        return itemService.getByNamePositionalParameters(name);
+    }
+
+    @Path("getallitemsbetweenprice")
+    @GET
+    public List<Item> getAllItemsBetweenPrice(@QueryParam("minPrice") double minPrice,
+                                              @QueryParam("maxPrice") double maxPrice) {
+        return itemService.getAllItemsBetweenPrice(minPrice, maxPrice);
+    }
+
+    @Path("getallitemssortedbycategory")
+    @GET
+    public List<Item> getAllItemsSortedByCategory() {
+        return itemService.getAllItemsSortedByCategory();
+    }
+
+    @Path("getallwithnamedquery")
+    @GET
+    public List<Item> getAllWithNamedQuery() {
+        return itemService.getAllWithNamedQuery();
+    }
+
+    @Path("getmaxprice")
+    @GET
+    public Double getMaxPrice() {
+        return itemService.selectMaxPrice();
+    }
+
+    @Path("getallitemscriteria")
+    @GET
+    public List<Item> getAllItemsCriteria() {
+        return itemService.getAllCriteria();
+    }
+
+//    @Path("getallitemssortedbycategorycriteria")
+//    @GET
+//    public List<Item> getAllItemsSortedByCategoryCriteria() {
+//        return itemService.getAllItemsSortedByCategoryCriteria();
+//    }
 }
