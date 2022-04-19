@@ -3,6 +3,7 @@ package se.iths.rest;
 import se.iths.entity.Item;
 import se.iths.service.ItemService;
 
+import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -20,6 +21,7 @@ public class ItemRest {
     public ItemRest(ItemService itemService) {
         this.itemService = itemService;
     }
+
 
     @Path("")
     @POST
